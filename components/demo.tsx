@@ -187,8 +187,12 @@ export function Demo() {
               <div className="flex flex-col gap-4">
                 <div className="flex flex-wrap gap-2">
                   <Button>
-                    <SparklesIcon />
+                    <SparklesIcon fill="currentColor" stroke="none" />
                     Gerar AI
+                  </Button>
+                  <Button>
+                    <SparklesIcon fill="currentColor" stroke="none" />
+                    Criar com AI
                   </Button>
                   <Button variant="secondary">Secondary</Button>
                   <Button variant="outline">Outline</Button>
