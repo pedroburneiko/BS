@@ -6,9 +6,7 @@ import {
   MousePointer2Icon,
   PencilIcon,
   EraserIcon,
-  WandSparklesIcon,
   ArrowRightIcon,
-  Maximize2Icon,
 } from "lucide-react"
 import { cn } from "@/lib/utils"
 
@@ -45,10 +43,7 @@ export function ImageEditor() {
 
         {/* Header */}
         <div className="relative mb-4 flex items-center justify-between">
-          <div className="flex items-center gap-2">
-            <WandSparklesIcon className="size-5 text-[#E2FF3F]" />
-            <h2 className="text-lg font-semibold text-white">Edit</h2>
-          </div>
+          <h2 className="text-lg font-semibold text-white">Edit</h2>
           <button
             type="button"
             aria-label="Close editor"
@@ -106,12 +101,6 @@ export function ImageEditor() {
                 </button>
               )
             })}
-          </div>
-
-          {/* Zoom badge */}
-          <div className="absolute bottom-3 right-3 flex items-center gap-1 rounded-md border border-[#7B7B7B] bg-black/50 px-2 py-1 text-xs text-[#CECECE] backdrop-blur-sm">
-            <Maximize2Icon className="size-3" />
-            <span>100%</span>
           </div>
         </div>
       </div>
