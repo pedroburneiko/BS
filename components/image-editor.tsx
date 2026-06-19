@@ -26,14 +26,20 @@ export function ImageEditor() {
   return (
     <div className="flex w-full max-w-[498px] flex-col gap-4">
       {/* Main editor card */}
-      <div className="relative overflow-hidden rounded-[20px] border border-[#515151] bg-[#1F1F1F]/80 p-5 shadow-2xl backdrop-blur-[10px]">
-        {/* gradient accent border glow */}
+      <div
+        className="relative overflow-hidden rounded-[20px] border border-transparent p-5 shadow-2xl backdrop-blur-[10px]"
+        style={{
+          background:
+            "linear-gradient(#151515, #151515) padding-box, linear-gradient(135deg, rgba(255,255,255,0.2) 0%, #853FFF 50%, #E2FF3F 100%) border-box",
+        }}
+      >
+        {/* subtle gradient fill overlay (purple 8% + green 10%) */}
         <div
           aria-hidden
-          className="pointer-events-none absolute inset-0 rounded-[20px] opacity-[0.08]"
+          className="pointer-events-none absolute inset-0 rounded-[20px]"
           style={{
             backgroundImage:
-              "linear-gradient(135deg, #853FFF 0%, #472F71 100%)",
+              "linear-gradient(135deg, rgba(133,63,255,0.08) 0%, rgba(226,255,63,0.10) 100%)",
           }}
         />
 
