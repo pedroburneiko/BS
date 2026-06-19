@@ -54,7 +54,7 @@ import {
 import { Slider } from '@/components/ui/slider'
 import { Switch } from '@/components/ui/switch'
 import { Textarea } from '@/components/ui/textarea'
-import { CopyIcon, CircleAlertIcon, TrashIcon, ShareIcon, ShoppingBagIcon, MoreHorizontalIcon, Loader2Icon, PlusIcon, MinusIcon, ArrowLeftIcon, ArrowRightIcon, CheckIcon, ChevronDownIcon, ChevronRightIcon, SearchIcon, SettingsIcon, ChevronUpIcon } from "lucide-react"
+import { CopyIcon, CircleAlertIcon, TrashIcon, ShareIcon, ShoppingBagIcon, MoreHorizontalIcon, Loader2Icon, PlusIcon, MinusIcon, ArrowLeftIcon, ArrowRightIcon, CheckIcon, ChevronDownIcon, ChevronRightIcon, SearchIcon, SettingsIcon, ChevronUpIcon, SparklesIcon } from "lucide-react"
 
 export function Demo() {
   const [sliderValue, setSliderValue] = React.useState<number[]>([500])
@@ -186,7 +186,10 @@ export function Demo() {
             <CardContent className="flex flex-col gap-6">
               <div className="flex flex-col gap-4">
                 <div className="flex flex-wrap gap-2">
-                  <Button>Button</Button>
+                  <Button>
+                    <SparklesIcon />
+                    Gerar AI
+                  </Button>
                   <Button variant="secondary">Secondary</Button>
                   <Button variant="outline">Outline</Button>
                   <Button variant="ghost">Ghost</Button>
