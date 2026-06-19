@@ -4,7 +4,6 @@ import { useState } from "react"
 import {
   XIcon,
   MousePointer2Icon,
-  CropIcon,
   PencilIcon,
   EraserIcon,
   WandSparklesIcon,
@@ -17,7 +16,6 @@ const tools = [
   { id: "select", label: "Select", icon: MousePointer2Icon },
   { id: "brush", label: "Brush", icon: PencilIcon },
   { id: "erase", label: "Erase", icon: EraserIcon },
-  { id: "crop", label: "Crop", icon: CropIcon },
 ]
 
 export function ImageEditor() {
@@ -69,11 +67,25 @@ export function ImageEditor() {
             fill="none"
             aria-hidden
           >
+            <defs>
+              <linearGradient
+                id="selection-stroke"
+                x1="215"
+                y1="232"
+                x2="415"
+                y2="398"
+                gradientUnits="userSpaceOnUse"
+              >
+                <stop stopColor="#853FFF" />
+                <stop offset="1" stopColor="#472F71" />
+              </linearGradient>
+            </defs>
             <path
               d="M335 260C343 238 367 227 388 235C410 243 421 267 413 289C411 294 409 298 407 301C399 320 386 333 371 343C358 355 346 364 329 373C312 381 293 388 266 395C244 401 221 388 215 366C209 344 222 321 244 315C270 308 283 303 292 299C300 295 306 290 318 280L320 278L323 277C326 274 328 272 329 271C330 270 330 270 330 269L331 268C332 266 333 264 334 262C334 261 335 261 335 260Z"
-              fill="#00FF1E"
-              fillOpacity="0.28"
-              stroke="#33FF00"
+              fill="#853FFF"
+              fillOpacity="0.2"
+              stroke="url(#selection-stroke)"
+              strokeWidth={2}
               strokeLinecap="round"
             />
           </svg>
