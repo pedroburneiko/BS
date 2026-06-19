@@ -26,7 +26,7 @@ export function ImageEditor() {
   return (
     <div className="flex w-full max-w-[498px] flex-col gap-4">
       {/* Main editor card */}
-      <div className="relative overflow-hidden rounded-[20px] border border-white/20 bg-[#151515] p-5 shadow-2xl">
+      <div className="relative overflow-hidden rounded-[20px] border border-[#515151] bg-[#1F1F1F]/80 p-5 shadow-2xl backdrop-blur-[10px]">
         {/* gradient accent border glow */}
         <div
           aria-hidden
@@ -124,7 +124,7 @@ export function ImageEditor() {
       </div>
 
       {/* Floating prompt bar */}
-      <div className="rounded-[20px] border border-[#515151] bg-[#1F1F1F]/80 p-4 backdrop-blur-md">
+      <div className="rounded-[20px] border border-[#515151] bg-[#1F1F1F]/80 p-4 backdrop-blur-[10px]">
         {/* Strength slider */}
         <div className="mb-4">
           <div className="mb-2 flex items-center justify-between text-xs">
