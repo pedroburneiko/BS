@@ -191,7 +191,6 @@ export function Demo() {
                     Gerar AI
                   </Button>
                   <Button>
-                    <SparklesIcon fill="currentColor" stroke="none" />
                     Criar com AI
                   </Button>
                   <Button variant="secondary">Secondary</Button>
