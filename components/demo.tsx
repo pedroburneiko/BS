@@ -177,6 +177,9 @@ export function Demo() {
                   <SettingsIcon
                   />
                 </Card>
+                <Card className="flex size-8 items-center justify-center p-0 shadow-none *:[svg]:size-4">
+                  <SparklesIcon fill="currentColor" stroke="none" />
+                </Card>
               </div>
             </CardContent>
           </Card>
