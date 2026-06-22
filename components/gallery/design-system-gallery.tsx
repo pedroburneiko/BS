@@ -1,7 +1,27 @@
 "use client"
 
 import * as React from "react"
-import { SquareIcon } from "lucide-react"
+import {
+  SquareIcon,
+  CopyIcon,
+  CircleAlertIcon,
+  TrashIcon,
+  ShareIcon,
+  ShoppingBagIcon,
+  MoreHorizontalIcon,
+  Loader2Icon,
+  PlusIcon,
+  MinusIcon,
+  ArrowLeftIcon,
+  ArrowRightIcon,
+  CheckIcon,
+  ChevronDownIcon,
+  ChevronRightIcon,
+  SearchIcon,
+  SettingsIcon,
+  ChevronUpIcon,
+  SparklesIcon,
+} from "lucide-react"
 
 import { Heading } from "@/components/primitives/heading"
 import { Text } from "@/components/primitives/text"
@@ -10,12 +30,82 @@ import { Stepper } from "@/components/primitives/stepper"
 import { Input } from "@/components/ui/input"
 import { SingleSelect, MultiSelect, PillSelect } from "@/components/dark-selects"
 import { ImageEditor } from "@/components/image-editor"
-import { Demo } from "@/components/demo"
 import { GallerySection, GalleryItem } from "@/components/gallery/section"
+
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+  AlertDialogTrigger,
+} from "@/components/ui/alert-dialog"
+import { Badge } from "@/components/ui/badge"
+import { Button } from "@/components/ui/button"
+import { ButtonGroup } from "@/components/ui/button-group"
+import { Card, CardContent } from "@/components/ui/card"
+import { Checkbox } from "@/components/ui/checkbox"
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuGroup,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu"
+import {
+  InputGroup,
+  InputGroupAddon,
+  InputGroupInput,
+  InputGroupText,
+} from "@/components/ui/input-group"
+import { Item, ItemActions, ItemContent, ItemDescription, ItemTitle } from "@/components/ui/item"
+import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group"
+import { Slider } from "@/components/ui/slider"
+import { Switch } from "@/components/ui/switch"
+import { Textarea } from "@/components/ui/textarea"
 
 // Input com o mesmo stroke/corner/altura dos selects e do Stepper do DS
 const pillInput =
   "h-11 w-56 rounded-full border-[#2a2a2a] bg-[#161616] px-5 text-sm text-white transition-colors placeholder:text-[#8a8a8a] hover:border-[#3a3a3a] focus-visible:border-[#3a3a3a] focus-visible:ring-0"
+
+const COLOR_TOKENS = [
+  "--background",
+  "--foreground",
+  "--primary",
+  "--secondary",
+  "--muted",
+  "--accent",
+  "--border",
+  "--chart-1",
+  "--chart-2",
+  "--chart-3",
+  "--chart-4",
+  "--chart-5",
+]
+
+const ICONS = [
+  { Icon: CopyIcon, name: "Copy" },
+  { Icon: CircleAlertIcon, name: "CircleAlert" },
+  { Icon: TrashIcon, name: "Trash" },
+  { Icon: ShareIcon, name: "Share" },
+  { Icon: ShoppingBagIcon, name: "ShoppingBag" },
+  { Icon: MoreHorizontalIcon, name: "MoreHorizontal" },
+  { Icon: Loader2Icon, name: "Loader2" },
+  { Icon: PlusIcon, name: "Plus" },
+  { Icon: MinusIcon, name: "Minus" },
+  { Icon: ArrowLeftIcon, name: "ArrowLeft" },
+  { Icon: ArrowRightIcon, name: "ArrowRight" },
+  { Icon: CheckIcon, name: "Check" },
+  { Icon: ChevronDownIcon, name: "ChevronDown" },
+  { Icon: ChevronRightIcon, name: "ChevronRight" },
+  { Icon: SearchIcon, name: "Search" },
+  { Icon: SettingsIcon, name: "Settings" },
+]
 
 export function DesignSystemGallery() {
   const [carnes, setCarnes] = React.useState(2)
@@ -23,6 +113,7 @@ export function DesignSystemGallery() {
   const [toppings, setToppings] = React.useState<string[]>(["tomate", "cebola-roxa", "vinagrete"])
   const [ratio, setRatio] = React.useState("1:1")
   const [size, setSize] = React.useState("1K")
+  const [sliderValue, setSliderValue] = React.useState<number[]>([500])
 
   return (
     <div className="mx-auto flex w-full max-w-5xl flex-col gap-10 py-10">
@@ -83,7 +174,46 @@ export function DesignSystemGallery() {
         </GalleryItem>
       </GallerySection>
 
-      {/* 2. Campos de formulário */}
+      {/* 2. Tokens de cor */}
+      <GallerySection
+        title="Tokens de cor"
+        description="Variáveis CSS do tema. Use via classes utilitárias (bg-primary, text-muted-foreground...)."
+        imports={[{ name: "globals.css", from: "@/app/globals.css" }]}
+      >
+        <div className="grid grid-cols-4 gap-4 sm:grid-cols-6">
+          {COLOR_TOKENS.map((variant) => (
+            <div key={variant} className="flex flex-col items-center gap-2">
+              <div
+                className="relative aspect-square w-full rounded-lg after:absolute after:inset-0 after:rounded-lg after:border after:border-white/10"
+                style={{ background: `var(${variant})` }}
+              />
+              <div className="w-full truncate text-center font-mono text-[0.6rem] text-[#8a8a8a]">
+                {variant}
+              </div>
+            </div>
+          ))}
+        </div>
+      </GallerySection>
+
+      {/* 3. Ícones */}
+      <GallerySection
+        title="Ícones"
+        description="Conjunto base do lucide-react, tamanho 16px, herdando currentColor."
+        imports={[{ name: "lucide-react", from: "lucide-react" }]}
+      >
+        <div className="flex flex-wrap gap-3">
+          {ICONS.map(({ Icon, name }) => (
+            <div key={name} className="flex flex-col items-center gap-1">
+              <Card className="flex size-9 items-center justify-center bg-[#161616] p-0 shadow-none">
+                <Icon className="size-4 text-white" />
+              </Card>
+              <span className="font-mono text-[0.6rem] text-[#6a6a6a]">{name}</span>
+            </div>
+          ))}
+        </div>
+      </GallerySection>
+
+      {/* 4. Campos de formulário */}
       <GallerySection
         title="Campos de formulário"
         description="Wrapper de campo (label | controle) com dica e erro, mais controles de entrada."
@@ -108,7 +238,7 @@ export function DesignSystemGallery() {
         </div>
       </GallerySection>
 
-      {/* 3. Selects */}
+      {/* 5. Selects */}
       <GallerySection
         title="Selects"
         description="Seletores em pill com stroke escuro para fundos #0c0c0c."
@@ -174,7 +304,195 @@ export function DesignSystemGallery() {
         </div>
       </GallerySection>
 
-      {/* 4. Editor */}
+      {/* 6. Botões & badges */}
+      <GallerySection
+        title="Botões & Badges"
+        description="Variantes de ação e rótulos de status."
+        imports={[
+          { name: "Button", from: "@/components/ui/button" },
+          { name: "Badge", from: "@/components/ui/badge" },
+        ]}
+      >
+        <GalleryItem name="<Button>" note="variant default/secondary/outline/ghost">
+          <div className="flex flex-wrap gap-2">
+            <Button>
+              <SparklesIcon fill="currentColor" stroke="none" />
+              Gerar AI
+            </Button>
+            <Button>Criar com AI</Button>
+            <Button variant="secondary">Secondary</Button>
+            <Button variant="outline">Outline</Button>
+            <Button variant="ghost">Ghost</Button>
+          </div>
+        </GalleryItem>
+
+        <GalleryItem name="<Badge>" note="variant default/secondary/outline">
+          <div className="flex flex-wrap gap-2">
+            <Badge>Badge</Badge>
+            <Badge variant="secondary">Secondary</Badge>
+            <Badge variant="outline">Outline</Badge>
+          </div>
+        </GalleryItem>
+      </GallerySection>
+
+      {/* 7. Cards & itens */}
+      <GallerySection
+        title="Cards & Itens"
+        description="Contêineres de conteúdo e linhas de item com ação."
+        imports={[
+          { name: "Card", from: "@/components/ui/card" },
+          { name: "Item", from: "@/components/ui/item" },
+        ]}
+      >
+        <GalleryItem name="<Item>" note="título + descrição + ação">
+          <Item variant="outline" className="max-w-md">
+            <ItemContent>
+              <ItemTitle>Two-factor authentication</ItemTitle>
+              <ItemDescription className="text-pretty">
+                Verify via email or phone number.
+              </ItemDescription>
+            </ItemContent>
+            <ItemActions>
+              <Button size="sm" variant="secondary">
+                Enable
+              </Button>
+            </ItemActions>
+          </Item>
+        </GalleryItem>
+      </GallerySection>
+
+      {/* 8. Controles */}
+      <GallerySection
+        title="Controles"
+        description="Entradas de seleção e ajuste: slider, switch, checkbox e radio."
+        imports={[
+          { name: "Slider", from: "@/components/ui/slider" },
+          { name: "Switch", from: "@/components/ui/switch" },
+          { name: "Checkbox", from: "@/components/ui/checkbox" },
+          { name: "RadioGroup", from: "@/components/ui/radio-group" },
+        ]}
+      >
+        <div className="flex flex-col gap-6">
+          <GalleryItem name="<Slider>">
+            <Slider
+              value={sliderValue}
+              onValueChange={setSliderValue}
+              max={1000}
+              min={0}
+              step={10}
+              className="w-full max-w-md"
+              aria-label="Slider"
+            />
+          </GalleryItem>
+
+          <div className="flex flex-wrap items-end gap-10">
+            <GalleryItem name="<Switch>">
+              <Switch defaultChecked />
+            </GalleryItem>
+
+            <GalleryItem name="<Checkbox>">
+              <div className="flex gap-3">
+                <Checkbox defaultChecked />
+                <Checkbox />
+              </div>
+            </GalleryItem>
+
+            <GalleryItem name="<RadioGroup>">
+              <RadioGroup defaultValue="apple" className="flex w-fit gap-3">
+                <RadioGroupItem value="apple" />
+                <RadioGroupItem value="banana" />
+              </RadioGroup>
+            </GalleryItem>
+          </div>
+        </div>
+      </GallerySection>
+
+      {/* 9. Entradas de texto */}
+      <GallerySection
+        title="Entradas de texto"
+        description="Input com addon e área de texto multilinha."
+        imports={[
+          { name: "InputGroup", from: "@/components/ui/input-group" },
+          { name: "Textarea", from: "@/components/ui/textarea" },
+        ]}
+      >
+        <div className="flex max-w-md flex-col gap-4">
+          <GalleryItem name="<InputGroup>" note="addon com ícone">
+            <InputGroup>
+              <InputGroupInput placeholder="Name" />
+              <InputGroupAddon align="inline-end">
+                <InputGroupText>
+                  <SearchIcon />
+                </InputGroupText>
+              </InputGroupAddon>
+            </InputGroup>
+          </GalleryItem>
+
+          <GalleryItem name="<Textarea>">
+            <Textarea placeholder="Message" className="resize-none" />
+          </GalleryItem>
+        </div>
+      </GallerySection>
+
+      {/* 10. Sobreposições & grupos */}
+      <GallerySection
+        title="Sobreposições & Grupos"
+        description="Diálogos de confirmação, grupos de botão e menus suspensos."
+        imports={[
+          { name: "AlertDialog", from: "@/components/ui/alert-dialog" },
+          { name: "ButtonGroup", from: "@/components/ui/button-group" },
+          { name: "DropdownMenu", from: "@/components/ui/dropdown-menu" },
+        ]}
+      >
+        <div className="flex flex-wrap items-end gap-10">
+          <GalleryItem name="<AlertDialog>">
+            <AlertDialog>
+              <AlertDialogTrigger asChild>
+                <Button variant="outline">Alert Dialog</Button>
+              </AlertDialogTrigger>
+              <AlertDialogContent size="sm">
+                <AlertDialogHeader>
+                  <AlertDialogTitle>Allow accessory to connect?</AlertDialogTitle>
+                  <AlertDialogDescription>
+                    Do you want to allow the USB accessory to connect to this device and your data?
+                  </AlertDialogDescription>
+                </AlertDialogHeader>
+                <AlertDialogFooter>
+                  <AlertDialogCancel>Don&apos;t allow</AlertDialogCancel>
+                  <AlertDialogAction>Allow</AlertDialogAction>
+                </AlertDialogFooter>
+              </AlertDialogContent>
+            </AlertDialog>
+          </GalleryItem>
+
+          <GalleryItem name="<ButtonGroup>" note="com <DropdownMenu>">
+            <ButtonGroup>
+              <Button variant="outline">Button Group</Button>
+              <DropdownMenu>
+                <DropdownMenuTrigger asChild>
+                  <Button variant="outline" size="icon">
+                    <ChevronUpIcon />
+                  </Button>
+                </DropdownMenuTrigger>
+                <DropdownMenuContent align="end" side="top" className="w-fit">
+                  <DropdownMenuGroup>
+                    <DropdownMenuLabel>Quick Actions</DropdownMenuLabel>
+                    <DropdownMenuItem>Mute Conversation</DropdownMenuItem>
+                    <DropdownMenuItem>Mark as Read</DropdownMenuItem>
+                    <DropdownMenuItem>Block User</DropdownMenuItem>
+                  </DropdownMenuGroup>
+                  <DropdownMenuSeparator />
+                  <DropdownMenuGroup>
+                    <DropdownMenuItem variant="destructive">Delete Conversation</DropdownMenuItem>
+                  </DropdownMenuGroup>
+                </DropdownMenuContent>
+              </DropdownMenu>
+            </ButtonGroup>
+          </GalleryItem>
+        </div>
+      </GallerySection>
+
+      {/* 11. Editor de imagem */}
       <GallerySection
         title="Editor de imagem"
         description="Card completo de edição com rail de ferramentas, slider e prompt."
@@ -183,15 +501,6 @@ export function DesignSystemGallery() {
         <div className="flex justify-center">
           <ImageEditor />
         </div>
-      </GallerySection>
-
-      {/* 5. Kit shadcn/ui */}
-      <GallerySection
-        title="Kit shadcn/ui"
-        description="Componentes base (botões, cards, inputs, diálogos) com os tokens do tema."
-        imports={[{ name: "Demo", from: "@/components/demo" }]}
-      >
-        <Demo />
       </GallerySection>
     </div>
   )
