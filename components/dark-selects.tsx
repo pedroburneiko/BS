@@ -197,7 +197,7 @@ export function PillSelect({
   )
 }
 
-function PillToolbar() {
+export function PillToolbar() {
   const [ratio, setRatio] = React.useState("1:1")
   const [size, setSize] = React.useState("1K")
 
