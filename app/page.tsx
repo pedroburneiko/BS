@@ -1,5 +1,6 @@
 import { ImageEditor } from "@/components/image-editor"
 import { Demo } from "@/components/demo"
+import { DarkSelects } from "@/components/dark-selects"
 
 export default function Page() {
   return (
@@ -7,6 +8,7 @@ export default function Page() {
       <div className="flex justify-center">
         <ImageEditor />
       </div>
+      <DarkSelects />
       <Demo />
     </main>
   )
