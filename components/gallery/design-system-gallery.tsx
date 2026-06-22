@@ -27,6 +27,13 @@ import { Heading } from "@/components/primitives/heading"
 import { Text } from "@/components/primitives/text"
 import { Field } from "@/components/primitives/field"
 import { Stepper } from "@/components/primitives/stepper"
+import { Container, Grid, GridItem, GridOverlay } from "@/components/primitives/grid"
+import {
+  EditBar,
+  EditBarSection,
+  EditBarRow,
+  EditBarButton,
+} from "@/components/primitives/edit-bar"
 import { Input } from "@/components/ui/input"
 import { SingleSelect, MultiSelect, PillSelect } from "@/components/dark-selects"
 import { ImageEditor } from "@/components/image-editor"
@@ -107,6 +114,130 @@ const ICONS = [
   { Icon: SettingsIcon, name: "Settings" },
 ]
 
+// Specs da escala de títulos (sincronizado com globals.css)
+const HEADING_SPECS = [
+  { label: "Display", size: 1 as const, as: 1 as const, fontSize: "56px / 3.5rem", weight: "Semibold 600", lineHeight: "1.05", letterSpacing: "-0.02em" },
+  { label: "Heading 1", size: 2 as const, as: 1 as const, fontSize: "40px / 2.5rem", weight: "Semibold 600", lineHeight: "1.1", letterSpacing: "-0.02em" },
+  { label: "Heading 2", size: 3 as const, as: 2 as const, fontSize: "32px / 2rem", weight: "Semibold 600", lineHeight: "1.15", letterSpacing: "-0.018em" },
+  { label: "Heading 3", size: 4 as const, as: 3 as const, fontSize: "24px / 1.5rem", weight: "Semibold 600", lineHeight: "1.2", letterSpacing: "-0.014em" },
+  { label: "Heading 4", size: 5 as const, as: 4 as const, fontSize: "20px / 1.25rem", weight: "Semibold 600", lineHeight: "1.3", letterSpacing: "-0.01em" },
+  { label: "Heading 5", size: 6 as const, as: 5 as const, fontSize: "18px / 1.125rem", weight: "Semibold 600", lineHeight: "1.4", letterSpacing: "-0.006em" },
+  { label: "Heading 6", size: 7 as const, as: 6 as const, fontSize: "16px / 1rem", weight: "Semibold 600", lineHeight: "1.5", letterSpacing: "0em" },
+]
+
+// Specs dos estilos de corpo (sincronizado com text.tsx)
+const TEXT_SPECS = [
+  { label: "Body large — parágrafo confortável de leitura.", size: 1 as const, color: "default" as const, fontSize: "18px / 1.125rem", weight: "Regular 400", lineHeight: "1.625", letterSpacing: "-0.006em" },
+  { label: "Body — texto padrão da interface.", size: 2 as const, color: "default" as const, fontSize: "16px / 1rem", weight: "Regular 400", lineHeight: "1.625", letterSpacing: "-0.006em" },
+  { label: "Caption — informações secundárias e dicas.", size: 3 as const, color: "muted" as const, fontSize: "14px / 0.875rem", weight: "Regular 400", lineHeight: "1.625", letterSpacing: "-0.006em" },
+  { label: "Erro — mensagem de validação.", size: 3 as const, color: "red" as const, fontSize: "14px / 0.875rem", weight: "Regular 400", lineHeight: "1.625", letterSpacing: "-0.006em" },
+]
+
+function TypeSpec({
+  font,
+  size,
+  weight,
+  lineHeight,
+  letterSpacing,
+}: {
+  font: string
+  size: string
+  weight: string
+  lineHeight: string
+  letterSpacing: string
+}) {
+  const items = [
+    { k: "Fonte", v: font },
+    { k: "Tamanho", v: size },
+    { k: "Peso", v: weight },
+    { k: "Entrelinhas", v: lineHeight },
+    { k: "Entreletras", v: letterSpacing },
+  ]
+  return (
+    <dl className="flex flex-wrap gap-x-4 gap-y-1 font-mono text-[0.6875rem] leading-normal text-[#8a8a8a]">
+      {items.map(({ k, v }) => (
+        <div key={k} className="flex gap-1.5">
+          <dt className="text-[#6a6a6a]">{k}:</dt>
+          <dd className="text-[#bdbdbd]">{v}</dd>
+        </div>
+      ))}
+    </dl>
+  )
+}
+
+const SELECT_OPTIONS = [
+  { label: "Opção 1", value: "1" },
+  { label: "Opção 2", value: "2" },
+  { label: "Opção 3", value: "3" },
+]
+
+const editBarControlClass = "w-[160px] px-4 py-2.5"
+
+function EditBarShowcase() {
+  const [values, setValues] = React.useState<Record<string, string>>({})
+  const set = (key: string) => (v: string) =>
+    setValues((prev) => ({ ...prev, [key]: v }))
+
+  return (
+    <EditBar
+      className="h-[560px] w-full"
+      footer={<EditBarButton>Gerar imagem</EditBarButton>}
+    >
+      <EditBarSection title="Produto" className="mb-6">
+        <EditBarRow label="Produto">
+          <SingleSelect
+            className={editBarControlClass}
+            options={SELECT_OPTIONS}
+            value={values.produto}
+            onValueChange={set("produto")}
+          />
+        </EditBarRow>
+        <EditBarRow label="Quantidade de proteína">
+          <Stepper defaultValue={1} min={0} max={10} aria-label="Quantidade de proteína" />
+        </EditBarRow>
+        <EditBarRow label="Tipo de carne">
+          <SingleSelect
+            className={editBarControlClass}
+            options={SELECT_OPTIONS}
+            value={values.tipoCarne}
+            onValueChange={set("tipoCarne")}
+          />
+        </EditBarRow>
+        <EditBarRow label="Queijo">
+          <SingleSelect
+            className={editBarControlClass}
+            options={SELECT_OPTIONS}
+            value={values.queijo}
+            onValueChange={set("queijo")}
+          />
+        </EditBarRow>
+        <EditBarRow label="Quantidade de bacon" noDivider>
+          <Stepper defaultValue={1} min={0} max={10} aria-label="Quantidade de bacon" />
+        </EditBarRow>
+      </EditBarSection>
+
+      <EditBarSection title="Cena">
+        <EditBarRow label="Apresentação">
+          <SingleSelect
+            className={editBarControlClass}
+            options={SELECT_OPTIONS}
+            value={values.apresentacao}
+            onValueChange={set("apresentacao")}
+          />
+        </EditBarRow>
+        <EditBarRow label="Destaque" noDivider>
+          <SingleSelect
+            className={editBarControlClass}
+            options={SELECT_OPTIONS}
+            value={values.destaque}
+            onValueChange={set("destaque")}
+          />
+        </EditBarRow>
+      </EditBarSection>
+    </EditBar>
+  )
+}
+
 export function DesignSystemGallery() {
   const [carnes, setCarnes] = React.useState(2)
   const [protein, setProtein] = React.useState("hamburguer")
@@ -139,37 +270,40 @@ export function DesignSystemGallery() {
         ]}
       >
         <GalleryItem name="<Heading>" note="size 1–8 (1 = display)">
-          <div className="flex flex-col gap-2">
-            <Heading size={1}>Display</Heading>
-            <Heading size={2} as={1}>
-              Heading 1
-            </Heading>
-            <Heading size={3}>Heading 2</Heading>
-            <Heading size={4} as={3}>
-              Heading 3
-            </Heading>
-            <Heading size={5} as={4}>
-              Heading 4
-            </Heading>
-            <Heading size={6} as={5}>
-              Heading 5
-            </Heading>
-            <Heading size={7} as={6}>
-              Heading 6
-            </Heading>
+          <div className="flex flex-col gap-5">
+            {HEADING_SPECS.map((spec) => (
+              <div key={spec.label} className="flex flex-col gap-1">
+                <Heading size={spec.size} as={spec.as}>
+                  {spec.label}
+                </Heading>
+                <TypeSpec
+                  font="Inter"
+                  size={spec.fontSize}
+                  weight={spec.weight}
+                  lineHeight={spec.lineHeight}
+                  letterSpacing={spec.letterSpacing}
+                />
+              </div>
+            ))}
           </div>
         </GalleryItem>
 
         <GalleryItem name="<Text>" note="size 1–6, color muted/gray/red">
-          <div className="flex flex-col gap-1">
-            <Text size={1}>Body large — parágrafo confortável de leitura.</Text>
-            <Text>Body — texto padrão da interface.</Text>
-            <Text size={3} color="muted">
-              Caption — informações secundárias e dicas.
-            </Text>
-            <Text size={3} color="red">
-              Erro — mensagem de validação.
-            </Text>
+          <div className="flex flex-col gap-5">
+            {TEXT_SPECS.map((spec) => (
+              <div key={spec.label} className="flex flex-col gap-1">
+                <Text size={spec.size} color={spec.color}>
+                  {spec.label}
+                </Text>
+                <TypeSpec
+                  font="Inter"
+                  size={spec.fontSize}
+                  weight={spec.weight}
+                  lineHeight={spec.lineHeight}
+                  letterSpacing={spec.letterSpacing}
+                />
+              </div>
+            ))}
           </div>
         </GalleryItem>
       </GallerySection>
@@ -193,6 +327,87 @@ export function DesignSystemGallery() {
             </div>
           ))}
         </div>
+      </GallerySection>
+
+      {/* Grid do projeto */}
+      <GallerySection
+        title="Grid do projeto"
+        description="Grid_new — 14 colunas, 1 linha, tipo Stretch, margem 20px e gutter 20px."
+        imports={[
+          { name: "Container", from: "@/components/primitives/grid" },
+          { name: "Grid", from: "@/components/primitives/grid" },
+          { name: "GridItem", from: "@/components/primitives/grid" },
+          { name: "GridOverlay", from: "@/components/primitives/grid" },
+        ]}
+      >
+        <div className="flex flex-col gap-6">
+          <TypeSpec
+            font="Grid_new"
+            size="14 colunas · 1 linha"
+            weight="Stretch"
+            lineHeight="margem 20px"
+            letterSpacing="gutter 20px"
+          />
+
+          <GalleryItem name="<GridOverlay>" note="14 colunas visíveis (#00BFFF 20%)">
+            <Container className="relative w-full overflow-hidden rounded-lg border border-[#2a2a2a] bg-[#161616] py-6">
+              <GridOverlay />
+              <Grid className="relative">
+                {Array.from({ length: 14 }).map((_, i) => (
+                  <GridItem key={i} className="flex h-16 items-center justify-center">
+                    <span className="font-mono text-[0.65rem] text-[#8a8a8a]">{i + 1}</span>
+                  </GridItem>
+                ))}
+              </Grid>
+            </Container>
+          </GalleryItem>
+
+          <GalleryItem name="<GridItem span>" note="exemplo de layout responsivo">
+            <Container className="w-full rounded-lg border border-[#2a2a2a] bg-[#161616] py-6">
+              <Grid>
+                <GridItem span={4} className="flex h-16 items-center justify-center rounded-md bg-[#222]">
+                  <span className="font-mono text-[0.65rem] text-[#cfcfcf]">span 4</span>
+                </GridItem>
+                <GridItem span={6} className="flex h-16 items-center justify-center rounded-md bg-[#222]">
+                  <span className="font-mono text-[0.65rem] text-[#cfcfcf]">span 6</span>
+                </GridItem>
+                <GridItem span={4} className="flex h-16 items-center justify-center rounded-md bg-[#222]">
+                  <span className="font-mono text-[0.65rem] text-[#cfcfcf]">span 4</span>
+                </GridItem>
+              </Grid>
+            </Container>
+          </GalleryItem>
+        </div>
+      </GallerySection>
+
+      {/* Barra de edição */}
+      <GallerySection
+        title="Barra de edição"
+        description="EditBar — painel de edição (Bar_New) com seções, linhas rótulo|controle e CTA. Ocupa a largura de 3 colunas do grid, reutilizando SingleSelect, Stepper e Field."
+        imports={[
+          { name: "EditBar", from: "@/components/primitives/edit-bar" },
+          { name: "EditBarSection", from: "@/components/primitives/edit-bar" },
+          { name: "EditBarRow", from: "@/components/primitives/edit-bar" },
+          { name: "EditBarButton", from: "@/components/primitives/edit-bar" },
+        ]}
+      >
+        <GalleryItem name="<EditBar>" note="span 3 colunas do grid (layout de página real)">
+          <div className="w-full overflow-x-auto rounded-lg border border-[#2a2a2a] bg-[#161616]">
+            <Container className="py-6" style={{ width: 1600 }}>
+              <Grid className="h-[560px]">
+                <GridItem span={3}>
+                  <EditBarShowcase />
+                </GridItem>
+                <GridItem
+                  span={11}
+                  className="flex items-center justify-center rounded-xl border border-dashed border-[#2a2a2a] text-sm text-[#6a6a6a]"
+                >
+                  Área de pré-visualização (11 colunas)
+                </GridItem>
+              </Grid>
+            </Container>
+          </div>
+        </GalleryItem>
       </GallerySection>
 
       {/* 3. Ícones */}
