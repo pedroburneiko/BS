@@ -1,6 +1,7 @@
 import { ImageEditor } from "@/components/image-editor"
 import { Demo } from "@/components/demo"
 import { DarkSelects } from "@/components/dark-selects"
+import { PrimitivesDemo } from "@/components/primitives/primitives-demo"
 
 export default function Page() {
   return (
@@ -9,6 +10,7 @@ export default function Page() {
         <ImageEditor />
       </div>
       <DarkSelects />
+      <PrimitivesDemo />
       <Demo />
     </main>
   )
