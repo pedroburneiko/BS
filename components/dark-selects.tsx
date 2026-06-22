@@ -13,7 +13,7 @@ import { cn } from "@/lib/utils"
 
 type Option = { label: string; value: string; disabled?: boolean }
 
-function SingleSelect({
+export function SingleSelect({
   options,
   value,
   onValueChange,
@@ -73,7 +73,7 @@ function SingleSelect({
 
 /* ----------------------------- Multi select ------------------------------ */
 
-function MultiSelect({
+export function MultiSelect({
   options,
   values,
   onValuesChange,
@@ -147,7 +147,7 @@ function MultiSelect({
 
 /* --------------------------- Compact pill select -------------------------- */
 
-function PillSelect({
+export function PillSelect({
   options,
   value,
   onValueChange,
