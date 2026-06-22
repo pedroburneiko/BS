@@ -5,7 +5,7 @@ import { Text } from "@/components/ui/text"
 
 export default function Page() {
   return (
-    <main className="min-h-screen bg-background px-6 py-16">
+    <main className="dark min-h-screen bg-background px-6 py-16 text-foreground">
       <DesignSystem />
 
       <section className="mx-auto mt-16 flex w-full max-w-3xl flex-col gap-6">
