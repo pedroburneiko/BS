@@ -4,18 +4,18 @@ import { cva, type VariantProps } from "class-variance-authority"
 
 import { cn } from "@/lib/utils"
 
-const headingVariants = cva("text-balance font-heading tracking-tight text-foreground", {
+const headingVariants = cva("text-balance font-heading text-foreground", {
   variants: {
-    // size 1 = maior, size 8 = menor
+    // size 1 = maior (display), size 8 = menor — escala do Design System
     size: {
-      1: "text-5xl md:text-6xl",
-      2: "text-4xl md:text-5xl",
-      3: "text-3xl md:text-4xl",
-      4: "text-2xl md:text-3xl",
-      5: "text-xl md:text-2xl",
-      6: "text-lg md:text-xl",
-      7: "text-base md:text-lg",
-      8: "text-sm md:text-base",
+      1: "text-display",
+      2: "text-h1",
+      3: "text-h2",
+      4: "text-h3",
+      5: "text-h4",
+      6: "text-h5",
+      7: "text-h6",
+      8: "text-sm tracking-tight",
     },
     weight: {
       bold: "font-bold",

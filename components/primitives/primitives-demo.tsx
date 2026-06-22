@@ -20,6 +20,34 @@ export function PrimitivesDemo() {
         <Text color="muted">Heading, Text, Field e Stepper.</Text>
       </div>
 
+      <div className="mt-6 flex flex-col gap-2 border-t border-border pt-6">
+        <Text size={4} color="muted" weight="medium" className="uppercase tracking-wide">
+          Escala tipográfica
+        </Text>
+        <Heading size={1}>Display</Heading>
+        <Heading size={2} as={1}>
+          Heading 1
+        </Heading>
+        <Heading size={3}>Heading 2</Heading>
+        <Heading size={4} as={3}>
+          Heading 3
+        </Heading>
+        <Heading size={5} as={4}>
+          Heading 4
+        </Heading>
+        <Heading size={6} as={5}>
+          Heading 5
+        </Heading>
+        <Heading size={7} as={6}>
+          Heading 6
+        </Heading>
+        <Text size={1}>Body large — parágrafo em Inter com leitura confortável.</Text>
+        <Text>Body — texto padrão usado na maior parte da interface.</Text>
+        <Text size={3} color="muted">
+          Caption — informações secundárias e dicas.
+        </Text>
+      </div>
+
       <div className="mt-6 flex flex-col gap-4 border-t border-border pt-6">
         <Field
           orientation="horizontal"
