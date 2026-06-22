@@ -1,17 +1,9 @@
-import { ImageEditor } from "@/components/image-editor"
-import { Demo } from "@/components/demo"
-import { DarkSelects } from "@/components/dark-selects"
-import { PrimitivesDemo } from "@/components/primitives/primitives-demo"
+import { DesignSystemGallery } from "@/components/gallery/design-system-gallery"
 
 export default function Page() {
   return (
-    <main className="flex flex-col gap-16 bg-[#0c0c0c] p-6">
-      <div className="flex justify-center">
-        <ImageEditor />
-      </div>
-      <DarkSelects />
-      <PrimitivesDemo />
-      <Demo />
+    <main className="min-h-screen bg-[#0c0c0c] px-4 py-8 sm:px-6">
+      <DesignSystemGallery />
     </main>
   )
 }
