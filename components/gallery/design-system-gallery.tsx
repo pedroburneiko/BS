@@ -107,6 +107,57 @@ const ICONS = [
   { Icon: SettingsIcon, name: "Settings" },
 ]
 
+// Specs da escala de títulos (sincronizado com globals.css)
+const HEADING_SPECS = [
+  { label: "Display", size: 1 as const, as: 1 as const, fontSize: "56px / 3.5rem", weight: "Semibold 600", lineHeight: "1.05", letterSpacing: "-0.02em" },
+  { label: "Heading 1", size: 2 as const, as: 1 as const, fontSize: "40px / 2.5rem", weight: "Semibold 600", lineHeight: "1.1", letterSpacing: "-0.02em" },
+  { label: "Heading 2", size: 3 as const, as: 2 as const, fontSize: "32px / 2rem", weight: "Semibold 600", lineHeight: "1.15", letterSpacing: "-0.018em" },
+  { label: "Heading 3", size: 4 as const, as: 3 as const, fontSize: "24px / 1.5rem", weight: "Semibold 600", lineHeight: "1.2", letterSpacing: "-0.014em" },
+  { label: "Heading 4", size: 5 as const, as: 4 as const, fontSize: "20px / 1.25rem", weight: "Semibold 600", lineHeight: "1.3", letterSpacing: "-0.01em" },
+  { label: "Heading 5", size: 6 as const, as: 5 as const, fontSize: "18px / 1.125rem", weight: "Semibold 600", lineHeight: "1.4", letterSpacing: "-0.006em" },
+  { label: "Heading 6", size: 7 as const, as: 6 as const, fontSize: "16px / 1rem", weight: "Semibold 600", lineHeight: "1.5", letterSpacing: "0em" },
+]
+
+// Specs dos estilos de corpo (sincronizado com text.tsx)
+const TEXT_SPECS = [
+  { label: "Body large — parágrafo confortável de leitura.", size: 1 as const, color: "default" as const, fontSize: "18px / 1.125rem", weight: "Regular 400", lineHeight: "1.625", letterSpacing: "-0.006em" },
+  { label: "Body — texto padrão da interface.", size: 2 as const, color: "default" as const, fontSize: "16px / 1rem", weight: "Regular 400", lineHeight: "1.625", letterSpacing: "-0.006em" },
+  { label: "Caption — informações secundárias e dicas.", size: 3 as const, color: "muted" as const, fontSize: "14px / 0.875rem", weight: "Regular 400", lineHeight: "1.625", letterSpacing: "-0.006em" },
+  { label: "Erro — mensagem de validação.", size: 3 as const, color: "red" as const, fontSize: "14px / 0.875rem", weight: "Regular 400", lineHeight: "1.625", letterSpacing: "-0.006em" },
+]
+
+function TypeSpec({
+  font,
+  size,
+  weight,
+  lineHeight,
+  letterSpacing,
+}: {
+  font: string
+  size: string
+  weight: string
+  lineHeight: string
+  letterSpacing: string
+}) {
+  const items = [
+    { k: "Fonte", v: font },
+    { k: "Tamanho", v: size },
+    { k: "Peso", v: weight },
+    { k: "Entrelinhas", v: lineHeight },
+    { k: "Entreletras", v: letterSpacing },
+  ]
+  return (
+    <dl className="flex flex-wrap gap-x-4 gap-y-1 font-mono text-[0.6875rem] leading-normal text-[#8a8a8a]">
+      {items.map(({ k, v }) => (
+        <div key={k} className="flex gap-1.5">
+          <dt className="text-[#6a6a6a]">{k}:</dt>
+          <dd className="text-[#bdbdbd]">{v}</dd>
+        </div>
+      ))}
+    </dl>
+  )
+}
+
 export function DesignSystemGallery() {
   const [carnes, setCarnes] = React.useState(2)
   const [protein, setProtein] = React.useState("hamburguer")
@@ -139,37 +190,40 @@ export function DesignSystemGallery() {
         ]}
       >
         <GalleryItem name="<Heading>" note="size 1–8 (1 = display)">
-          <div className="flex flex-col gap-2">
-            <Heading size={1}>Display</Heading>
-            <Heading size={2} as={1}>
-              Heading 1
-            </Heading>
-            <Heading size={3}>Heading 2</Heading>
-            <Heading size={4} as={3}>
-              Heading 3
-            </Heading>
-            <Heading size={5} as={4}>
-              Heading 4
-            </Heading>
-            <Heading size={6} as={5}>
-              Heading 5
-            </Heading>
-            <Heading size={7} as={6}>
-              Heading 6
-            </Heading>
+          <div className="flex flex-col gap-5">
+            {HEADING_SPECS.map((spec) => (
+              <div key={spec.label} className="flex flex-col gap-1">
+                <Heading size={spec.size} as={spec.as}>
+                  {spec.label}
+                </Heading>
+                <TypeSpec
+                  font="Inter"
+                  size={spec.fontSize}
+                  weight={spec.weight}
+                  lineHeight={spec.lineHeight}
+                  letterSpacing={spec.letterSpacing}
+                />
+              </div>
+            ))}
           </div>
         </GalleryItem>
 
         <GalleryItem name="<Text>" note="size 1–6, color muted/gray/red">
-          <div className="flex flex-col gap-1">
-            <Text size={1}>Body large — parágrafo confortável de leitura.</Text>
-            <Text>Body — texto padrão da interface.</Text>
-            <Text size={3} color="muted">
-              Caption — informações secundárias e dicas.
-            </Text>
-            <Text size={3} color="red">
-              Erro — mensagem de validação.
-            </Text>
+          <div className="flex flex-col gap-5">
+            {TEXT_SPECS.map((spec) => (
+              <div key={spec.label} className="flex flex-col gap-1">
+                <Text size={spec.size} color={spec.color}>
+                  {spec.label}
+                </Text>
+                <TypeSpec
+                  font="Inter"
+                  size={spec.fontSize}
+                  weight={spec.weight}
+                  lineHeight={spec.lineHeight}
+                  letterSpacing={spec.letterSpacing}
+                />
+              </div>
+            ))}
           </div>
         </GalleryItem>
       </GallerySection>

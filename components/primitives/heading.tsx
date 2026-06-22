@@ -24,7 +24,7 @@ const headingVariants = cva("text-balance font-heading text-foreground", {
   },
   defaultVariants: {
     size: 3,
-    weight: "bold",
+    weight: "semibold",
   },
 })
 

@@ -162,7 +162,7 @@ body {
 /* Padrões tipográficos do Design System */
 h1, h2, h3, h4, h5, h6 {
   @apply font-heading text-foreground text-balance;
-  font-weight: 700;
+  font-weight: 600;
 }
 h1 {
   font-size: var(--text-h1);
