@@ -8,11 +8,15 @@ import { Field } from "@/components/primitives/field"
 import { Stepper } from "@/components/primitives/stepper"
 import { Input } from "@/components/ui/input"
 
+// Input com o mesmo stroke/corner/altura dos selects e do Stepper do DS
+const pillInput =
+  "h-11 w-48 rounded-full border-[#2a2a2a] bg-[#161616] px-5 text-sm text-white transition-colors placeholder:text-[#8a8a8a] hover:border-[#3a3a3a] focus-visible:border-[#3a3a3a] focus-visible:ring-0"
+
 export function PrimitivesDemo() {
   const [carnes, setCarnes] = React.useState(2)
 
   return (
-    <section className="mx-auto w-full max-w-2xl rounded-xl border border-border bg-card p-6 text-card-foreground">
+    <section className="dark mx-auto w-full max-w-2xl rounded-2xl border border-[#2a2a2a] bg-[#0c0c0c] p-8 text-white">
       <div className="flex flex-col gap-1">
         <Heading as={2} size={4}>
           Primitivos
@@ -20,7 +24,7 @@ export function PrimitivesDemo() {
         <Text color="muted">Heading, Text, Field e Stepper.</Text>
       </div>
 
-      <div className="mt-6 flex flex-col gap-2 border-t border-border pt-6">
+      <div className="mt-6 flex flex-col gap-2 border-t border-[#2a2a2a] pt-6">
         <Text size={4} color="muted" weight="medium" className="uppercase tracking-wide">
           Escala tipográfica
         </Text>
@@ -48,14 +52,14 @@ export function PrimitivesDemo() {
         </Text>
       </div>
 
-      <div className="mt-6 flex flex-col gap-4 border-t border-border pt-6">
+      <div className="mt-6 flex flex-col gap-4 border-t border-[#2a2a2a] pt-6">
         <Field
           orientation="horizontal"
           label="Nome do pedido"
           htmlFor="nome"
           hint="Aparece no comprovante"
         >
-          <Input id="nome" placeholder="Ex: Mesa 4" className="w-48" />
+          <Input id="nome" placeholder="Ex: Mesa 4" className={pillInput} />
         </Field>
 
         <Field orientation="horizontal" label="Quantidade de carnes" htmlFor="carnes">
@@ -74,7 +78,7 @@ export function PrimitivesDemo() {
           htmlFor="email"
           error="Informe um e-mail válido."
         >
-          <Input id="email" placeholder="voce@exemplo.com" className="w-48" />
+          <Input id="email" placeholder="voce@exemplo.com" className={pillInput} />
         </Field>
       </div>
     </section>

@@ -4,7 +4,6 @@ import * as React from "react"
 import { MinusIcon, PlusIcon } from "lucide-react"
 
 import { cn } from "@/lib/utils"
-import { Button } from "@/components/ui/button"
 
 export interface StepperProps
   extends Omit<React.HTMLAttributes<HTMLDivElement>, "onChange" | "defaultValue"> {
@@ -70,44 +69,42 @@ export const Stepper = React.forwardRef<HTMLDivElement, StepperProps>(
       <div
         ref={ref}
         className={cn(
-          "inline-flex items-center gap-1 rounded-md border border-border bg-card p-1",
+          // mesmo stroke/superfície/corner dos selects do DS (rounded-full, #2a2a2a, #161616)
+          "inline-flex items-center gap-1 rounded-full border border-[#2a2a2a] bg-[#161616] p-1 transition-colors",
+          !disabled && "hover:border-[#3a3a3a]",
           disabled && "opacity-50",
           className,
         )}
         {...props}
       >
-        <Button
+        <button
           type="button"
-          variant="ghost"
-          size="icon"
-          className="size-7"
           onClick={decrement}
           disabled={!canDecrement}
           aria-label="Diminuir"
+          className="flex size-9 items-center justify-center rounded-full text-[#cfcfcf] outline-none transition-colors hover:bg-white/5 hover:text-white focus-visible:bg-white/5 disabled:pointer-events-none disabled:text-[#5a5a5a]"
         >
           <MinusIcon className="size-4" />
-        </Button>
+        </button>
         <span
           role="spinbutton"
           aria-valuenow={value}
           aria-valuemin={min}
           aria-valuemax={Number.isFinite(max) ? max : undefined}
           aria-label={props["aria-label"]}
-          className="min-w-8 text-center text-sm font-medium tabular-nums text-foreground"
+          className="min-w-9 text-center text-sm font-medium tabular-nums text-white"
         >
           {value}
         </span>
-        <Button
+        <button
           type="button"
-          variant="ghost"
-          size="icon"
-          className="size-7"
           onClick={increment}
           disabled={!canIncrement}
           aria-label="Aumentar"
+          className="flex size-9 items-center justify-center rounded-full text-[#cfcfcf] outline-none transition-colors hover:bg-white/5 hover:text-white focus-visible:bg-white/5 disabled:pointer-events-none disabled:text-[#5a5a5a]"
         >
           <PlusIcon className="size-4" />
-        </Button>
+        </button>
       </div>
     )
   },
