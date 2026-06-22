@@ -28,6 +28,12 @@ import { Text } from "@/components/primitives/text"
 import { Field } from "@/components/primitives/field"
 import { Stepper } from "@/components/primitives/stepper"
 import { Container, Grid, GridItem, GridOverlay } from "@/components/primitives/grid"
+import {
+  EditBar,
+  EditBarSection,
+  EditBarRow,
+  EditBarButton,
+} from "@/components/primitives/edit-bar"
 import { Input } from "@/components/ui/input"
 import { SingleSelect, MultiSelect, PillSelect } from "@/components/dark-selects"
 import { ImageEditor } from "@/components/image-editor"
@@ -156,6 +162,79 @@ function TypeSpec({
         </div>
       ))}
     </dl>
+  )
+}
+
+const SELECT_OPTIONS = [
+  { label: "Opção 1", value: "1" },
+  { label: "Opção 2", value: "2" },
+  { label: "Opção 3", value: "3" },
+]
+
+const editBarControlClass = "w-[160px] px-4 py-2.5"
+
+function EditBarShowcase() {
+  const [values, setValues] = React.useState<Record<string, string>>({})
+  const set = (key: string) => (v: string) =>
+    setValues((prev) => ({ ...prev, [key]: v }))
+
+  return (
+    <EditBar
+      className="h-[560px] w-full"
+      footer={<EditBarButton>Gerar imagem</EditBarButton>}
+    >
+      <EditBarSection title="Produto" className="mb-6">
+        <EditBarRow label="Produto">
+          <SingleSelect
+            className={editBarControlClass}
+            options={SELECT_OPTIONS}
+            value={values.produto}
+            onValueChange={set("produto")}
+          />
+        </EditBarRow>
+        <EditBarRow label="Quantidade de proteína">
+          <Stepper defaultValue={1} min={0} max={10} aria-label="Quantidade de proteína" />
+        </EditBarRow>
+        <EditBarRow label="Tipo de carne">
+          <SingleSelect
+            className={editBarControlClass}
+            options={SELECT_OPTIONS}
+            value={values.tipoCarne}
+            onValueChange={set("tipoCarne")}
+          />
+        </EditBarRow>
+        <EditBarRow label="Queijo">
+          <SingleSelect
+            className={editBarControlClass}
+            options={SELECT_OPTIONS}
+            value={values.queijo}
+            onValueChange={set("queijo")}
+          />
+        </EditBarRow>
+        <EditBarRow label="Quantidade de bacon" noDivider>
+          <Stepper defaultValue={1} min={0} max={10} aria-label="Quantidade de bacon" />
+        </EditBarRow>
+      </EditBarSection>
+
+      <EditBarSection title="Cena">
+        <EditBarRow label="Apresentação">
+          <SingleSelect
+            className={editBarControlClass}
+            options={SELECT_OPTIONS}
+            value={values.apresentacao}
+            onValueChange={set("apresentacao")}
+          />
+        </EditBarRow>
+        <EditBarRow label="Destaque" noDivider>
+          <SingleSelect
+            className={editBarControlClass}
+            options={SELECT_OPTIONS}
+            value={values.destaque}
+            onValueChange={set("destaque")}
+          />
+        </EditBarRow>
+      </EditBarSection>
+    </EditBar>
   )
 }
 
@@ -299,6 +378,36 @@ export function DesignSystemGallery() {
             </Container>
           </GalleryItem>
         </div>
+      </GallerySection>
+
+      {/* Barra de edição */}
+      <GallerySection
+        title="Barra de edição"
+        description="EditBar — painel de edição (Bar_New) com seções, linhas rótulo|controle e CTA. Ocupa a largura de 3 colunas do grid, reutilizando SingleSelect, Stepper e Field."
+        imports={[
+          { name: "EditBar", from: "@/components/primitives/edit-bar" },
+          { name: "EditBarSection", from: "@/components/primitives/edit-bar" },
+          { name: "EditBarRow", from: "@/components/primitives/edit-bar" },
+          { name: "EditBarButton", from: "@/components/primitives/edit-bar" },
+        ]}
+      >
+        <GalleryItem name="<EditBar>" note="span 3 colunas do grid (layout de página real)">
+          <div className="w-full overflow-x-auto rounded-lg border border-[#2a2a2a] bg-[#161616]">
+            <Container className="py-6" style={{ width: 1600 }}>
+              <Grid className="h-[560px]">
+                <GridItem span={3}>
+                  <EditBarShowcase />
+                </GridItem>
+                <GridItem
+                  span={11}
+                  className="flex items-center justify-center rounded-xl border border-dashed border-[#2a2a2a] text-sm text-[#6a6a6a]"
+                >
+                  Área de pré-visualização (11 colunas)
+                </GridItem>
+              </Grid>
+            </Container>
+          </div>
+        </GalleryItem>
       </GallerySection>
 
       {/* 3. Ícones */}
