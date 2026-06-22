@@ -27,6 +27,7 @@ import { Heading } from "@/components/primitives/heading"
 import { Text } from "@/components/primitives/text"
 import { Field } from "@/components/primitives/field"
 import { Stepper } from "@/components/primitives/stepper"
+import { Container, Grid, GridItem, GridOverlay } from "@/components/primitives/grid"
 import { Input } from "@/components/ui/input"
 import { SingleSelect, MultiSelect, PillSelect } from "@/components/dark-selects"
 import { ImageEditor } from "@/components/image-editor"
@@ -246,6 +247,57 @@ export function DesignSystemGallery() {
               </div>
             </div>
           ))}
+        </div>
+      </GallerySection>
+
+      {/* Grid do projeto */}
+      <GallerySection
+        title="Grid do projeto"
+        description="Grid_new — 14 colunas, 1 linha, tipo Stretch, margem 20px e gutter 20px."
+        imports={[
+          { name: "Container", from: "@/components/primitives/grid" },
+          { name: "Grid", from: "@/components/primitives/grid" },
+          { name: "GridItem", from: "@/components/primitives/grid" },
+          { name: "GridOverlay", from: "@/components/primitives/grid" },
+        ]}
+      >
+        <div className="flex flex-col gap-6">
+          <TypeSpec
+            font="Grid_new"
+            size="14 colunas · 1 linha"
+            weight="Stretch"
+            lineHeight="margem 20px"
+            letterSpacing="gutter 20px"
+          />
+
+          <GalleryItem name="<GridOverlay>" note="14 colunas visíveis (#00BFFF 20%)">
+            <Container className="relative w-full overflow-hidden rounded-lg border border-[#2a2a2a] bg-[#161616] py-6">
+              <GridOverlay />
+              <Grid className="relative">
+                {Array.from({ length: 14 }).map((_, i) => (
+                  <GridItem key={i} className="flex h-16 items-center justify-center">
+                    <span className="font-mono text-[0.65rem] text-[#8a8a8a]">{i + 1}</span>
+                  </GridItem>
+                ))}
+              </Grid>
+            </Container>
+          </GalleryItem>
+
+          <GalleryItem name="<GridItem span>" note="exemplo de layout responsivo">
+            <Container className="w-full rounded-lg border border-[#2a2a2a] bg-[#161616] py-6">
+              <Grid>
+                <GridItem span={4} className="flex h-16 items-center justify-center rounded-md bg-[#222]">
+                  <span className="font-mono text-[0.65rem] text-[#cfcfcf]">span 4</span>
+                </GridItem>
+                <GridItem span={6} className="flex h-16 items-center justify-center rounded-md bg-[#222]">
+                  <span className="font-mono text-[0.65rem] text-[#cfcfcf]">span 6</span>
+                </GridItem>
+                <GridItem span={4} className="flex h-16 items-center justify-center rounded-md bg-[#222]">
+                  <span className="font-mono text-[0.65rem] text-[#cfcfcf]">span 4</span>
+                </GridItem>
+              </Grid>
+            </Container>
+          </GalleryItem>
         </div>
       </GallerySection>
 
